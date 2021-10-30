@@ -90,6 +90,6 @@ class Guardar_Foto : AppCompatActivity() {
 
     //guardar la imagen con nombre
     private fun savePic() {
-        
+
     }
 }
