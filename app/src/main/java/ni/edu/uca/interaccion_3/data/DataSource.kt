@@ -1,5 +1,6 @@
 package ni.edu.uca.interaccion_3.data
 
+import android.util.Log
 import ni.edu.uca.interaccion_3.model.Usuario
 
 class DataSource() {
@@ -8,6 +9,11 @@ class DataSource() {
     var usuarios:MutableList<Usuario> = mutableListOf(pred)
 
     public fun insertar(usuario: Usuario): Boolean {
-        return usuarios.add(usuario)
+        return if(usuarios.add(usuario)){
+            Log.e("Usuarios", usuarios.toString())
+            true
+        } else{
+            false
+        }
     }
 }

@@ -22,10 +22,11 @@ class Nuevo_Usuario : AppCompatActivity() {
                 binding.etdtNac.text.toString(),
                 binding.etNombreReal.text.toString()
             )
+
             if(DataSource().insertar(nUsuario)){
                 startActivity(Intent(this,MainActivity::class.java))
             }
         }
-        
+
     }
 }
