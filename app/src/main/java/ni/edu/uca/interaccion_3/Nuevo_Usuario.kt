@@ -9,6 +9,7 @@ import ni.edu.uca.interaccion_3.model.Usuario
 
 class Nuevo_Usuario : AppCompatActivity() {
     private lateinit var binding:ActivityNuevoUsuarioBinding
+    private val dtSource= DataSource()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityNuevoUsuarioBinding.inflate(layoutInflater)
@@ -16,6 +17,7 @@ class Nuevo_Usuario : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnNnuevo.setOnClickListener {
+            //Inicializa un usuario con los datos proporcionados en los edit text view
             val nUsuario = Usuario(
                 binding.etUsuario.text.toString(),
                 binding.etnContra.text.toString(),
@@ -23,7 +25,8 @@ class Nuevo_Usuario : AppCompatActivity() {
                 binding.etNombreReal.text.toString()
             )
 
-            if(DataSource().insertar(nUsuario)){
+            //Llama al dataSource para insertar el usuario  que se inicializo arriba
+            if(dtSource.insertar(nUsuario)){
                 startActivity(Intent(this,MainActivity::class.java))
             }
         }
