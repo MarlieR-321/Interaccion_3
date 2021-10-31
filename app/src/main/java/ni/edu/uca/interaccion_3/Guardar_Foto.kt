@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.os.Environment.getExternalStoragePublicDirectory
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -18,9 +19,14 @@ import java.io.*
 
 class Guardar_Foto : AppCompatActivity() {
     private lateinit var binding:ActivityGuardarFotoBinding
-    private val REQUEST_PERMISSION_CAMERA =100
-    private val REQUEST_IMAGE_CAMERA =101
     private lateinit var imgBitmap:Bitmap
+
+    companion object {
+        const val REQUEST_PERMISSION_CAMERA = 100
+        const val TAKE_PICTURE = 101
+        const val REQUEST_PERMISSION_WRITE_STORAGE =200
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityGuardarFotoBinding.inflate(layoutInflater)
@@ -28,40 +34,25 @@ class Guardar_Foto : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnTomarFoto.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ActivityCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.CAMERA
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    goToCamera()
-                } else {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(android.Manifest.permission.CAMERA),
-                        REQUEST_PERMISSION_CAMERA
-                    )
-                }
-            } else {
-                goToCamera()
-            }
+            checkPermissionCamera()
         }
 
         binding.btnGuardarFoto.setOnClickListener {
-            savePic()
+            checkPermissionStorage()
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+
+    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray) {
         if(requestCode==REQUEST_PERMISSION_CAMERA){
-            if(permissions.isNotEmpty()&&grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            if(permissions.isNotEmpty() &&grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 goToCamera()
             }else{
                 Toast.makeText(this,"Necesita habilitar", Toast.LENGTH_SHORT).show()
+            }
+        }else if(requestCode == REQUEST_PERMISSION_WRITE_STORAGE){
+            if(permissions.isNotEmpty()&&grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                savePic()
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -69,18 +60,48 @@ class Guardar_Foto : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode,resultCode,data)
-        if (requestCode == REQUEST_IMAGE_CAMERA && resultCode == RESULT_OK) {
-            imgBitmap = data?.extras?.get("data") as Bitmap
-            binding.ivImagen.setImageBitmap(imgBitmap)
+        if(requestCode== TAKE_PICTURE){
+            if(resultCode== RESULT_OK && data !=null){
+                imgBitmap = data.extras?.get("data") as Bitmap
+                binding.ivImagen.setImageBitmap(imgBitmap)
+            }
         }
     }
 
+    private fun checkPermissionStorage(){
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.P){
+            if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.M){
+                if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+                    savePic()
+                }else{
+                    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),REQUEST_PERMISSION_WRITE_STORAGE)
+                }
+            }else{
+                savePic()
+            }
+        }else{
+            savePic()
+        }
+    }
+
+    private fun checkPermissionCamera(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                goToCamera()
+            } else {
+                ActivityCompat.requestPermissions(this,arrayOf(android.Manifest.permission.CAMERA),REQUEST_PERMISSION_CAMERA)
+            }
+        } else {
+            goToCamera()
+        }
+    }
+
+
     //tomar y mostrar la foto
     private fun goToCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAMERA)
-            }
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if(intent.resolveActivity(packageManager)!=null){
+            startActivityForResult(intent, TAKE_PICTURE)
         }
     }
 
@@ -116,8 +137,8 @@ class Guardar_Foto : AppCompatActivity() {
             }
 
         } else {
-            val imageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString()
-            val fileName = ("${System.currentTimeMillis()}${".jpg"}")
+            val imageDir = getExternalStoragePublicDirectory((Environment.DIRECTORY_PICTURES).toString())
+            val fileName = ("${binding.etNombreFoto.text.toString()}.jpg")
 
             file = File(imageDir, fileName)
             try {
