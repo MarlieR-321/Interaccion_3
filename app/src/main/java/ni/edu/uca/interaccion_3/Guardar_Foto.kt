@@ -74,9 +74,9 @@ class Guardar_Foto : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode,resultCode,data)
         if (requestCode == REQUEST_IMAGE_CAMERA && resultCode == RESULT_OK) {
-            imgBitmap = data?.extras?.get("data") as Bitmap
+            //imgBitmap = data?.extras?.get("data") as Bitmap
                 // Uri.parse(ruta)
-            binding.ivImagen.setImageBitmap(imgBitmap)
+            binding.ivImagen.setImageURI(Uri.parse(ruta))
         }
     }
 
@@ -84,12 +84,47 @@ class Guardar_Foto : AppCompatActivity() {
     private fun goToCamera() {
 
         if(cameraintent.resolveActivity(packageManager)!=null){
+
+            /*var imagenArchivo:File? = null
+
+            try {
+                imagenArchivo = crearImagen()
+            }catch (e:IOException){
+                Log.e("Error: ",e.toString())
+            }
+
+            if(imagenArchivo!=null){
+                val foto: Uri = FileProvider.getUriForFile(this,"ni.edu.uca.interaccion_3",imagenArchivo)
+                cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,foto)
+            }*/
+
             startActivityForResult(cameraintent, REQUEST_IMAGE_CAMERA)
+
         }
     }
 
     //guardar la imagen con nombre
     private fun savePic() {
+        var imagenArchivo:File? = null
 
+        try {
+            imagenArchivo = crearImagen()
+        }catch (e:IOException){
+            Log.e("Error: ",e.toString())
+        }
+
+        if(imagenArchivo!=null){
+            val foto: Uri = FileProvider.getUriForFile(this,"ni.edu.uca.interaccion_3",imagenArchivo)
+            cameraintent.putExtra(MediaStore.EXTRA_OUTPUT,foto)
+        }
+    }
+
+    private fun crearImagen():File{
+        val nmbImagen = binding.etNombreFoto.text.toString()
+        val descrImagen = binding.etDescripcion.text.toString()
+        val directorio: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val imagen = File.createTempFile(nmbImagen,".jpg",directorio)
+        ruta = imagen.absolutePath
+        return imagen
     }
 }

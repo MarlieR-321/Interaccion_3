@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DAM 1/Interaccion_3/app/src/main/res/layout/activity_buscar_foto.xml" value="0.24818840579710144" />
+        <entry key="..\:/DAM 1/Interaccion_3/app/src/main/res/layout/activity_foto_no_encontrada.xml" value="0.24818840579710144" />
+        <entry key="..\:/DAM 1/Interaccion_3/app/src/main/res/layout/activity_guardar_foto.xml" value="0.24818840579710144" />
         <entry key="..\:/Users/Marlon Ramirez/Documents/ISI/2S_2021/DAMO/Interaccion_3/app/src/main/res/layout/activity_buscar_foto.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Marlon Ramirez/Documents/ISI/2S_2021/DAMO/Interaccion_3/app/src/main/res/layout/activity_guardar_foto.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Marlon Ramirez/Documents/ISI/2S_2021/DAMO/Interaccion_3/app/src/main/res/layout/activity_main.xml" value="0.33" />
