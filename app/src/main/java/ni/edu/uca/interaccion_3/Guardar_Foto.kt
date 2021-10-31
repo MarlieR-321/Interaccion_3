@@ -128,7 +128,7 @@ class Guardar_Foto : AppCompatActivity() {
         }
         val save: Boolean = imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
         if (save) {
-            Toast.makeText(this, "Picture save successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Picture: ${binding.etDescripcion.text.toString()}", Toast.LENGTH_SHORT).show()
         }
 
         fos?.run {
