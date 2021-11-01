@@ -3,7 +3,9 @@ package ni.edu.uca.interaccion_3
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import ni.edu.uca.interaccion_3.databinding.ActivityMainBinding
+import ni.edu.uca.interaccion_3.model.Usuario
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
