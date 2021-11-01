@@ -9,7 +9,8 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA" />
 
     <queries>
@@ -30,25 +31,11 @@
             android:name=".Guardar_Foto"
             android:exported="true" />
 
-        <provider
-
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="ni.edu.uca.interaccion_3"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
         <activity
             android:name=".Buscar_Foto"
             android:exported="true" />
         <activity
             android:name=".Plano_Foto"
-            android:exported="true" />
-        <activity
-            android:name=".Nuevo_Usuario"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

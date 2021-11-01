@@ -16,9 +16,5 @@ class MainActivity : AppCompatActivity() {
         binding.btnIniciar.setOnClickListener {
             startActivity(Intent(this,Plano_Foto::class.java))
         }
-
-        binding.btnNuevo.setOnClickListener {
-            startActivity(Intent(this,Nuevo_Usuario::class.java))
-        }
     }
 }

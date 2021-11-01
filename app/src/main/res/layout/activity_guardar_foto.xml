@@ -19,20 +19,21 @@
         android:id="@+id/etNombreFoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:layout_marginHorizontal="25dp"
         android:layout_marginTop="25dp"
-        android:layout_marginHorizontal="25dp"/>
+        android:ems="10"
+        android:hint="Nombre de Foto"
+        android:inputType="textPersonName" />
+
     <EditText
         android:id="@+id/etDescripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Descripcion"
+        android:layout_marginHorizontal="25dp"
         android:layout_marginTop="25dp"
-        android:layout_marginHorizontal="25dp"/>
+        android:ems="10"
+        android:hint="Descripción"
+        android:inputType="textPersonName" />
     <Button
         android:id="@+id/btnTomarFoto"
         android:layout_width="match_parent"
