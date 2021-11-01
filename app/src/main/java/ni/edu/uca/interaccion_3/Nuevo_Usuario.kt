@@ -9,7 +9,6 @@ import ni.edu.uca.interaccion_3.model.Usuario
 
 class Nuevo_Usuario : AppCompatActivity() {
     private lateinit var binding:ActivityNuevoUsuarioBinding
-    private val dtSource= DataSource()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding= ActivityNuevoUsuarioBinding.inflate(layoutInflater)
@@ -26,7 +25,7 @@ class Nuevo_Usuario : AppCompatActivity() {
             )
 
             //Llama al dataSource para insertar el usuario  que se inicializo arriba
-            if(dtSource.insertar(nUsuario)){
+            if(DataSource().insertar(nUsuario)){
                 startActivity(Intent(this,MainActivity::class.java))
             }
         }
