@@ -9,7 +9,7 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-    
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -24,9 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Interaccion_3">
-        <activity
-            android:name=".Foto_No_Encontrada"
-            android:exported="true" />
+        
         <activity
             android:name=".Guardar_Foto"
             android:exported="true" />
