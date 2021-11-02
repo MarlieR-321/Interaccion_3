@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnIniciar.setOnClickListener {
-            if (binding.tvnUsuario.text.isNullOrBlank() && binding.tvCont.text.isNullOrBlank()) {
+            if (binding.etNombreUsuario.text.isNullOrBlank() && binding.etContrasena.text.isNullOrBlank()) {
 
                 Toast.makeText(this, "Por favor llena los campos", Toast.LENGTH_LONG).show()
             } else {
